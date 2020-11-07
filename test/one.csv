@@ -1,0 +1,4 @@
+name,time,sensor,site,temperature
+env,1599612130709842134,freezer,site1,-10.82
+env,1599612130743049304,freezer,site1,-10.82
+env,1599612306307120495,freezer,site1,-10.82

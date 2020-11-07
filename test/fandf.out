@@ -1,0 +1,6 @@
+env,site=site1,sensor=freezer temperature=-10.82 1599612130709842134
+env,site=site1,sensor=freezer temperature=-10.82 1599612130743049304
+env,site=site1,sensor=freezer temperature=-10.82 1599612306307120495
+env,site=site1,sensor=fridge temperature=2.6 1599612130709842134
+env,site=site1,sensor=fridge temperature=2.7 1599612130743049304
+env,site=site1,sensor=fridge temperature=2.8 1599612306307120495

@@ -1,0 +1,4 @@
+name,time,sensor,site,temperature
+env,1599612130709842134,fridge,site1,2.6
+env,1599612130743049304,fridge,site1,2.7
+env,1599612306307120495,fridge,site1,2.8
