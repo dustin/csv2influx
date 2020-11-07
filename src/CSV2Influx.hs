@@ -30,9 +30,8 @@ split = fmap (head . V.toList) . CSV.decode CSV.NoHeader . BL.fromStrict . BC.pa
 run :: Options -> IO [BL.ByteString]
 run Options{..} = traverse doOne optInputs
   where
-    doOne fp = CSV.decodeByNameWithP parser CSV.defaultDecodeOptions <$> BL.readFile fp >>= \case
-      Right (_, csvd) -> pure $ foldMap (BL.fromStrict . TE.encodeUtf8 . toProtocol) csvd
-      Left x -> fail x
+    doOne fp = either fail (pure . foldMap (BL.fromStrict . TE.encodeUtf8 . toProtocol) . snd)
+               . CSV.decodeByNameWithP parser CSV.defaultDecodeOptions =<< BL.readFile fp
 
     parser h = Row
                <$> CSV.lookup h optMeasurement
