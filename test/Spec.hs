@@ -3,6 +3,7 @@ import           Data.Char
 import           Data.Coerce           (coerce)
 import           Data.Foldable         (fold)
 import           Data.List             (intercalate)
+import           Data.List.NonEmpty    (NonEmpty (..))
 import           Test.QuickCheck
 import           Test.Tasty
 import           Test.Tasty.Golden
@@ -36,7 +37,7 @@ tests = [
     (dofiles $ base { optTags = [] }),
 
   goldenVsStringDiff "some freezers with more fields" diff "test/freezers+fields.out"
-    (dofiles $ base { optFields = ["temperature", "sensor"] }),
+    (dofiles $ base { optFields = "temperature" :| ["sensor"] }),
 
   goldenVsStringDiff "some fridges" diff "test/fridges.out"
     (dofiles $ base { optInputs = ["test/two.csv"] }),
@@ -49,7 +50,7 @@ tests = [
     ]
 
   where dofiles = (fmap.fmap) fold run
-        base = Options "name" ["site", "sensor"] ["temperature"] "time" ["test/one.csv"]
+        base = Options "name" ["site", "sensor"] ("temperature" :| []) "time" ["test/one.csv"]
         diff ref new = ["diff", "-u", ref, new]
 
 main :: IO ()
