@@ -13,10 +13,7 @@ import           CSV2Influx
 newtype PlausibleFieldName = PlausibleFieldName String deriving (Show, Eq)
 
 instance Arbitrary PlausibleFieldName where
-  arbitrary = do
-    n <- choose (1, 11)
-    PlausibleFieldName <$> vectorOf n chars
-
+  arbitrary = PlausibleFieldName <$> (resize 11 $ listOf1 chars)
       where chars = choose (minBound, '~') `suchThat` (\c -> isAscii c && isAlphaNum c)
 
 -- Split is really limited because the input is a string from the CLI,
