@@ -45,5 +45,6 @@ run Options{..} = traverse doOne optInputs
       where
         mtags = zipWith zf optTags tags
         mfields = NE.zipWith zf optFields fields
-        join = T.intercalate "," . toList
+        join = T.intercalate "," . filter (/= "") . toList
+        zf _ "" = ""
         zf k v = (T.pack . BC.unpack) k <> "=" <> v
