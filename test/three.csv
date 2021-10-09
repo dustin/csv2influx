@@ -1,0 +1,4 @@
+name,time,sensor,site,value
+env,1599612130709842134,thing,site1,2
+env,1599612130743049304,thing,site1,3
+env,1599612306307120495,thing,site1,5

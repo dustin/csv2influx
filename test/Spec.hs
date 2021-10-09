@@ -45,12 +45,17 @@ tests = [
   goldenVsStringDiff "freezers and fridges" diff "test/fandf.out"
     (dofiles $ base { optInputs = ["test/one.csv", "test/two.csv"]} ),
 
+  goldenVsStringDiff "with ints" diff "test/three.out"
+    (dofiles $ base { optInputs = ["test/three.csv"],
+                      optFields = "value" :| [],
+                      optIntFields = ["value"]}),
+
     testProperty "can split" prop_Splits
 
     ]
 
   where dofiles = (fmap.fmap) fold run
-        base = Options "name" ["site", "sensor"] ("temperature" :| []) "time" ["test/one.csv"]
+        base = Options "name" ["site", "sensor"] ("temperature" :| []) [] "time" ["test/one.csv"]
         diff ref new = ["diff", "-u", ref, new]
 
 main :: IO ()

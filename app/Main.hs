@@ -15,6 +15,7 @@ options = Options
                  <> help "measurement column name")
   <*> option commaParser (long "tags" <> short 't' <> value [] <> help "tags column names (comma separated)")
   <*> option commaParser' (long "fields" <> short 'f' <> help "field column names (comma separated)")
+  <*> option commaParser (long "intfields" <> short 'i' <> help "fields whose values are type int")
   <*> strOption (long "time" <> showDefault <> value "time" <> help "timestamp column name")
   <*> some (argument str (metavar "FILES..."))
 

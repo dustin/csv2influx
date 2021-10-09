@@ -3,8 +3,8 @@ module CSV2Influx where
 import qualified Data.ByteString.Char8 as BC
 import qualified Data.ByteString.Lazy  as BL
 import qualified Data.Csv              as CSV
-import           Data.Foldable         (toList, fold)
-import           Data.List.NonEmpty    (NonEmpty(..))
+import           Data.Foldable         (fold, toList)
+import           Data.List.NonEmpty    (NonEmpty (..))
 import qualified Data.List.NonEmpty    as NE
 import           Data.Text             (Text)
 import qualified Data.Text             as T
@@ -21,6 +21,7 @@ data Options = Options
   { optMeasurement :: BC.ByteString
   , optTags        :: [BC.ByteString]
   , optFields      :: NonEmpty BC.ByteString
+  , optIntFields   :: [BC.ByteString]
   , optTimestamp   :: BC.ByteString
   , optInputs      :: [FilePath]
   } deriving Show
@@ -47,4 +48,4 @@ run Options{..} = traverse doOne optInputs
         mfields = NE.zipWith zf optFields fields
         join = T.intercalate "," . filter (/= "") . toList
         zf _ "" = ""
-        zf k v = (T.pack . BC.unpack) k <> "=" <> v
+        zf k v  = (T.pack . BC.unpack) k <> "=" <> v <> fold ["i" | k `elem` optIntFields ]
